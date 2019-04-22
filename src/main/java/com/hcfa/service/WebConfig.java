@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 
 import com.hcfa.inte.CommonService;
+import com.hcfa.material.inte.MaterialService;
 
 import org.springframework.context.annotation.Bean;
  
@@ -21,15 +22,26 @@ import javax.xml.ws.Endpoint;
 public class WebConfig {
     @Autowired
     private Bus bus;
+    
  
     @Autowired
     CommonService service;
+    
+    @Autowired
+    MaterialService materialService;
  
     /*jax-ws*/
     @Bean
     public Endpoint endpoint() {
         EndpointImpl endpoint = new EndpointImpl(bus, service);
         endpoint.publish("/CommonService");
+        return endpoint;
+    }
+    
+    @Bean
+    public Endpoint endpoint2() {
+        EndpointImpl endpoint = new EndpointImpl(bus, materialService);
+        endpoint.publish("/MaterialService");
         return endpoint;
     }
 }

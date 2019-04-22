@@ -1,5 +1,6 @@
 package com.hcfa.inteImpl;
  
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.stereotype.Component;
 
 import com.hcfa.inte.CommonService;
