@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hcfa.material.dao.UnitsMapper" >
+  <resultMap id="BaseResultMap" type="com.hcfa.material.vo.Units" >
+    <id column="RKEY" property="rkey" jdbcType="DECIMAL" />
+    <result column="UNIT_CODE" property="unitCode" jdbcType="CHAR" />
+    <result column="UNIT_NAME" property="unitName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    RKEY, UNIT_CODE, UNIT_NAME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from DATA0002
+    where RKEY = #{rkey,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from DATA0002
+    where RKEY = #{rkey,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.hcfa.material.vo.Units" >
+    insert into DATA0002 (RKEY, UNIT_CODE, UNIT_NAME
+      )
+    values (#{rkey,jdbcType=DECIMAL}, #{unitCode,jdbcType=CHAR}, #{unitName,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.hcfa.material.vo.Units" >
+    insert into DATA0002
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="rkey != null" >
+        RKEY,
+      </if>
+      <if test="unitCode != null" >
+        UNIT_CODE,
+      </if>
+      <if test="unitName != null" >
+        UNIT_NAME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="rkey != null" >
+        #{rkey,jdbcType=DECIMAL},
+      </if>
+      <if test="unitCode != null" >
+        #{unitCode,jdbcType=CHAR},
+      </if>
+      <if test="unitName != null" >
+        #{unitName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hcfa.material.vo.Units" >
+    update DATA0002
+    <set >
+      <if test="unitCode != null" >
+        UNIT_CODE = #{unitCode,jdbcType=CHAR},
+      </if>
+      <if test="unitName != null" >
+        UNIT_NAME = #{unitName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where RKEY = #{rkey,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hcfa.material.vo.Units" >
+    update DATA0002
+    set UNIT_CODE = #{unitCode,jdbcType=CHAR},
+      UNIT_NAME = #{unitName,jdbcType=VARCHAR}
+    where RKEY = #{rkey,jdbcType=DECIMAL}
+  </update>
+  <select  id="getUnits" resultMap="BaseResultMap" >
+  		select * from DATA0002 
+  </select>
+</mapper>
