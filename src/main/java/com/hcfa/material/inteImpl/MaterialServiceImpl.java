@@ -59,6 +59,7 @@ public class MaterialServiceImpl implements MaterialService {
 		String prodSupper=(String) cs.get("prodSupper");
 		String custPartCode=(String) cs.get("custPartCode");
 		String ipdcSTR=(String) cs.get("ipdcSTR");
+		String package_=(String) cs.get("package_");
 		try {
 			if(!"".equals(prodSupper)&&prodSupper!=null) {
 				prodSupper =CodeUtil.getLM(prodSupper);
@@ -73,6 +74,10 @@ public class MaterialServiceImpl implements MaterialService {
 				String [] list = ipdcSTR.split("\\s+");
 				 List<String> stringB = Arrays.asList(list);
 				cs.put("list", stringB);
+			}
+			if(!"".equals(package_)&&package_!=null) {
+				package_ =CodeUtil.getLM(package_);
+				cs.put("package_", package_);
 			}
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();

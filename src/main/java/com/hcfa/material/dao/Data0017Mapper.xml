@@ -8,7 +8,7 @@
     <result column="extra_desc" property="extraDesc" jdbcType="VARCHAR" />
     <result column="prod_code_sell_ptr" property="prodCodeSellPtr" jdbcType="VARCHAR" />
     <result column="prod_supper" property="prodSupper" jdbcType="VARCHAR" />
-    <result column="package_" property="package" jdbcType="VARCHAR" />
+    <result column="package" property="package_" jdbcType="VARCHAR" />
     <result column="smt_flag" property="smtFlag" jdbcType="VARCHAR" />
     <result column="inv_part_description_c" property="invPartDescriptionC" jdbcType="VARCHAR" />
     <result column="cust_part_name" property="custPartName" jdbcType="VARCHAR" />
