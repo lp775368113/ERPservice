@@ -12,4 +12,9 @@ public interface Data0017Mapper {
     List<Data0017> getPage(Map map);
     
     Integer getPageCount(Map map);
+
+	Integer countCustPartCode(Map map);
+
+	Integer countInvPartDescriptionC(Map map);
+
 }

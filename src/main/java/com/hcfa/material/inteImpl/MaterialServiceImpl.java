@@ -23,6 +23,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -57,6 +58,7 @@ public class MaterialServiceImpl implements MaterialService {
 		HashMap cs=(HashMap) JSONObject.toBean(jsonstr, Map.class);
 		String prodSupper=(String) cs.get("prodSupper");
 		String custPartCode=(String) cs.get("custPartCode");
+		String ipdcSTR=(String) cs.get("ipdcSTR");
 		try {
 			if(!"".equals(prodSupper)&&prodSupper!=null) {
 				prodSupper =CodeUtil.getLM(prodSupper);
@@ -65,6 +67,12 @@ public class MaterialServiceImpl implements MaterialService {
 			if(!"".equals(custPartCode)&&custPartCode!=null) {
 				custPartCode =CodeUtil.getLM(custPartCode);
 				cs.put("custPartCode", custPartCode);
+			}
+			if(!"".equals(ipdcSTR)&&ipdcSTR!=null) {
+				ipdcSTR =CodeUtil.getLM(ipdcSTR);
+				String [] list = ipdcSTR.split("\\s+");
+				 List<String> stringB = Arrays.asList(list);
+				cs.put("list", stringB);
 			}
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
@@ -85,10 +93,29 @@ public class MaterialServiceImpl implements MaterialService {
 	public String getDWInfo(String para2) {
 		JSONObject jsonstr = JSONObject.fromObject(para2);
 		HashMap cs=(HashMap) JSONObject.toBean(jsonstr, Map.class);
-		logger.info(cs.toString());
-		List<Units> units=unitsMapper.getUnits();
-		JSONObject json = JSONObject.fromObject(units);
-		logger.info(json.toString());
+		String  custPartCode=(String)cs.get("custPartCode");
+		String invPartDescriptionC=(String)cs.get("invPartDescriptionC");
+		try {
+			if(!"".equals(invPartDescriptionC)&&invPartDescriptionC!=null) {
+				invPartDescriptionC =CodeUtil.getLM(invPartDescriptionC);
+				cs.put("invPartDescriptionC", invPartDescriptionC);
+			}
+			if(!"".equals(custPartCode)&&custPartCode!=null) {
+				custPartCode =CodeUtil.getLM(custPartCode);
+				cs.put("custPartCode", custPartCode);
+			}
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+			logger.info(e.getMessage());
+		}
+		Integer cpc=data0017Mapper.countCustPartCode(cs);
+		Integer ipdc=data0017Mapper.countInvPartDescriptionC(cs);
+		Map<String,Object> result=new HashMap<String,Object>();
+		
+		result.put("countCustPartCode", (cpc==0)?true:false);
+		result.put("conutInvPartDescriptionC", (ipdc==0)?true:false);
+		JSONObject json = JSONObject.fromObject(result);
+		logger.info("返回值："+json.toString());
 		return json.toString();
 	}
 	

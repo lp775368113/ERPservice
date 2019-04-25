@@ -46,7 +46,15 @@
      <if test="custPartCode != null and custPartCode!=''" >
        AND a.CUST_PART_CODE like '%${custPartCode}%'
      </if>
-  	and  ROWNUM &lt;= #{end} order by a.RKEY  desc)    WHERE RN >= #{start}
+     <if test="list!= null and list.size()>0">
+			AND (
+			<foreach collection="list" item="item" index="index" separator="AND">
+				a.inv_part_description_c LIKE
+				'%${item}%'
+			</foreach>
+			)
+	</if>
+  	and  ROWNUM &lt;= #{end} order by a.RKEY  desc)    WHERE RN >#{start}
   </select>
   
   <select id="getPageCount" parameterType="java.util.Map" resultType="java.lang.Integer">
@@ -66,6 +74,23 @@
      <if test="custPartCode != null and custPartCode!=''" >
        AND a.CUST_PART_CODE like '%${custPartCode}%'
      </if>
+     <if test="list!= null and list.size()>0">
+			AND (
+			<foreach collection="list" item="item" index="index" separator="AND">
+				a.inv_part_description_c LIKE
+				'%${item}%'
+			</foreach>
+			)
+	</if>
   </select>
+  
+  <select id="countCustPartCode" parameterType="java.util.Map" resultType="java.lang.Integer">
+  	SELECT COUNT(*) FROM DATA0017  a where  a.CUST_PART_CODE = #{custPartCode}
+  </select>
+  
+   <select id="countInvPartDescriptionC" parameterType="java.util.Map" resultType="java.lang.Integer">
+  	SELECT COUNT(*) FROM DATA0017  a where  a.inv_part_description_c = #{invPartDescriptionC}
+  </select>
+  
   
 </mapper>
