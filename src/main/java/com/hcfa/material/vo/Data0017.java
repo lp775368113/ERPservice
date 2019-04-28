@@ -167,7 +167,7 @@ public class Data0017 {
         	if("".equals(package_)||package_==null) {
         		return "";
         	}else {
-        		return CodeUtil.getZW(prodSupper);
+        		return CodeUtil.getZW(package_);
         	}
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
