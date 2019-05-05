@@ -60,8 +60,28 @@ public class Data0017 {
     private String workManH;
 
     private String machH;
+    
+    private String prodCodeSellPtrStr;
+    
 
-    public Integer getId() {
+    public String getProdCodeSellPtrStr() {
+		try {
+        	if("".equals(prodCodeSellPtrStr)||prodCodeSellPtrStr==null) {
+        		return "";
+        	}else {
+        		return CodeUtil.getZW(prodCodeSellPtrStr);
+        	}
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+        return null;
+	}
+
+	public void setProdCodeSellPtrStr(String prodCodeSellPtrStr) {
+		this.prodCodeSellPtrStr = prodCodeSellPtrStr;
+	}
+
+	public Integer getId() {
         return id;
     }
 
