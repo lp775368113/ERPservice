@@ -1,96 +1,159 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.hcfa.material.dao.Data0017Mapper" >
-  <resultMap id="BaseResultMap" type="com.hcfa.material.vo.Data0017" >
-    <result column="rkey" property="rkey" jdbcType="INTEGER" />
-    <result column="ttype" property="ttype" jdbcType="VARCHAR" />
-    <result column="inv_part_number" property="invPartNumber" jdbcType="VARCHAR" />
-    <result column="extra_desc" property="extraDesc" jdbcType="VARCHAR" />
-    <result column="prod_code_sell_ptr" property="prodCodeSellPtr" jdbcType="VARCHAR" />
-    <result column="prod_supper" property="prodSupper" jdbcType="VARCHAR" />
-    <result column="package" property="package_" jdbcType="VARCHAR" />
-    <result column="smt_flag" property="smtFlag" jdbcType="VARCHAR" />
-    <result column="inv_part_description_c" property="invPartDescriptionC" jdbcType="VARCHAR" />
-    <result column="cust_part_name" property="custPartName" jdbcType="VARCHAR" />
-    <result column="cust_part_code" property="custPartCode" jdbcType="VARCHAR" />
-    <result column="purch_unit_ptr" property="purchUnitPtr" jdbcType="VARCHAR" />
-    <result column="stock_unit_ptr" property="stockUnitPtr" jdbcType="VARCHAR" />
-    <result column="supplier_ptr" property="supplierPtr" jdbcType="VARCHAR" />
-    <result column="std_cost" property="stdCost" jdbcType="VARCHAR" />
-    <result column="stock_purch" property="stockPurch" jdbcType="VARCHAR" />
-    <result column="iqc_flag" property="iqcFlag" jdbcType="VARCHAR" />
-    <result column="stock_pak_qty" property="stockPakQty" jdbcType="VARCHAR" />
-    <result column="stop_purch" property="stopPurch" jdbcType="VARCHAR" />
-    <result column="qty_per_k" property="qtyPerK" jdbcType="VARCHAR" />
-    <result column="mwidth" property="mwidth" jdbcType="VARCHAR" />
-    <result column="mlength" property="mlength" jdbcType="VARCHAR" />
-    <result column="rest_iqc_date" property="restIqcDate" jdbcType="VARCHAR" />
-    <result column="work_man_h" property="workManH" jdbcType="VARCHAR" />
-    <result column="mach_h" property="machH" jdbcType="VARCHAR" />
-  </resultMap>
-  
-   <select id="getPage" parameterType="java.util.Map" resultMap="BaseResultMap">
-  	SELECT * FROM(SELECT a.*,ROWNUM RN   FROM DATA0017  a where 1=1  
-  	<if test="invPartNumber != null and invPartNumber!=''" >
-       AND a.INV_PART_NUMBER like '%${invPartNumber}%'
-     </if>
-     <if test="prodSupper != null and prodSupper!=''" >
-       AND a.PROD_SUPPER like '%${prodSupper}%'
-     </if>
-     <if test="package_ != null and package_!=''" >
-       AND a.PACKAGE = #{package_}
-     </if>
-     <if test="extraDesc != null and extraDesc!=''" >
-       AND a.EXTRA_DESC like '%${extraDesc}%'
-     </if>
-     <if test="custPartCode != null and custPartCode!=''" >
-       AND a.CUST_PART_CODE like '%${custPartCode}%'
-     </if>
-     <if test="list!= null and list.size()>0">
+<mapper namespace="com.hcfa.material.dao.Data0017Mapper">
+	<resultMap id="BaseResultMap"
+		type="com.hcfa.material.vo.Data0017">
+		<result column="rkey" property="rkey" jdbcType="INTEGER" />
+		<result column="ttype" property="ttype" jdbcType="VARCHAR" />
+		<result column="inv_part_number" property="invPartNumber"
+			jdbcType="VARCHAR" />
+		<result column="extra_desc" property="extraDesc"
+			jdbcType="VARCHAR" />
+		<result column="prod_code_sell_ptr" property="prodCodeSellPtr"
+			jdbcType="VARCHAR" />
+		<result column="prod_supper" property="prodSupper"
+			jdbcType="VARCHAR" />
+		<result column="package" property="package_" jdbcType="VARCHAR" />
+		<result column="smt_flag" property="smtFlag" jdbcType="VARCHAR" />
+		<result column="inv_part_description_c"
+			property="invPartDescriptionC" jdbcType="VARCHAR" />
+		<result column="cust_part_name" property="custPartName"
+			jdbcType="VARCHAR" />
+		<result column="cust_part_code" property="custPartCode"
+			jdbcType="VARCHAR" />
+		<result column="purch_unit_ptr" property="purchUnitPtr"
+			jdbcType="VARCHAR" />
+		<result column="stock_unit_ptr" property="stockUnitPtr"
+			jdbcType="VARCHAR" />
+		<result column="supplier_ptr" property="supplierPtr"
+			jdbcType="VARCHAR" />
+		<result column="std_cost" property="stdCost" jdbcType="VARCHAR" />
+		<result column="stock_purch" property="stockPurch"
+			jdbcType="VARCHAR" />
+		<result column="iqc_flag" property="iqcFlag" jdbcType="VARCHAR" />
+		<result column="stock_pak_qty" property="stockPakQty"
+			jdbcType="VARCHAR" />
+		<result column="stop_purch" property="stopPurch"
+			jdbcType="VARCHAR" />
+		<result column="qty_per_k" property="qtyPerK"
+			jdbcType="VARCHAR" />
+		<result column="mwidth" property="mwidth" jdbcType="VARCHAR" />
+		<result column="mlength" property="mlength" jdbcType="VARCHAR" />
+		<result column="rest_iqc_date" property="restIqcDate"
+			jdbcType="VARCHAR" />
+		<result column="work_man_h" property="workManH"
+			jdbcType="VARCHAR" />
+		<result column="mach_h" property="machH" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<select id="getPage" parameterType="java.util.Map"
+		resultMap="BaseResultMap">
+		SELECT * FROM(SELECT
+		a.rkey,
+		a.ttype,
+		a.inv_part_number,
+		a.extra_desc,
+		(select j.PROD_NAME from DATA0008 j WHERE a.prod_code_sell_ptr=j.RKEY) prod_code_sell_ptr,
+		a.prod_supper,
+		a.package,
+		a.smt_flag,
+		a.inv_part_description_c,
+		a.cust_part_name,
+		a.cust_part_code,
+		a.purch_unit_ptr,
+		a.stock_unit_ptr,
+		a.supplier_ptr,
+		a.std_cost,
+		a.stock_purch,
+		a.iqc_flag,
+		a.stock_pak_qty,
+		a.stop_purch,
+		a.qty_per_k,
+		a.mwidth,
+		a.mlength,
+		a.rest_iqc_date,
+		a.work_man_h,
+		a.mach_h,
+		ROWNUM RN FROM DATA0017 a where 1=1
+		<if test="invPartNumber != null and invPartNumber!=''">
+			AND a.INV_PART_NUMBER like '%${invPartNumber}%'
+		</if>
+		<if test="prodSupper != null and prodSupper!=''">
+			AND a.PROD_SUPPER like '%${prodSupper}%'
+		</if>
+		<if test="package_ != null and package_!=''">
+			AND a.PACKAGE = #{package_}
+		</if>
+		<if test="extraDesc != null and extraDesc!=''">
+			AND a.EXTRA_DESC like '%${extraDesc}%'
+		</if>
+		<if test="custPartCode != null and custPartCode!=''">
+			AND a.CUST_PART_CODE like '%${custPartCode}%'
+		</if>
+		<if test="prodCodeSellPtr != null and prodCodeSellPtr!=''">
+			AND a.prod_code_sell_ptr =#{prodCodeSellPtr}
+		</if>
+		<if test="list!= null and list.size()>0">
 			AND (
-			<foreach collection="list" item="item" index="index" separator="AND">
+			<foreach collection="list" item="item" index="index"
+				separator="AND">
 				a.inv_part_description_c LIKE
 				'%${item}%'
 			</foreach>
 			)
-	</if>
-  	and  ROWNUM &lt;= #{end} order by a.RKEY  desc)    WHERE RN >#{start}
-  </select>
-  
-  <select id="getPageCount" parameterType="java.util.Map" resultType="java.lang.Integer">
-  	SELECT COUNT(*) FROM DATA0017  a where 1=1
-  	<if test="invPartNumber != null and invPartNumber!=''" >
-       AND a.INV_PART_NUMBER like '%${invPartNumber}%'
-     </if>
-     <if test="prodSupper != null and prodSupper!=''" >
-       AND a.PROD_SUPPER like '%${prodSupper}%'
-     </if>
-     <if test="package_ != null and package_!=''" >
-       AND a.PACKAGE = #{package_}
-     </if>
-     <if test="extraDesc != null and extraDesc!=''" >
-       AND a.EXTRA_DESC like '%${extraDesc}%'
-     </if>
-     <if test="custPartCode != null and custPartCode!=''" >
-       AND a.CUST_PART_CODE like '%${custPartCode}%'
-     </if>
-     <if test="list!= null and list.size()>0">
+		</if>
+		and ROWNUM &lt;= #{end} order by a.RKEY desc) WHERE RN >#{start}
+	</select>
+
+	<select id="getPageCount" parameterType="java.util.Map"
+		resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM DATA0017 a where 1=1
+		<if test="invPartNumber != null and invPartNumber!=''">
+			AND a.INV_PART_NUMBER like '%${invPartNumber}%'
+		</if>
+		<if test="prodSupper != null and prodSupper!=''">
+			AND a.PROD_SUPPER like '%${prodSupper}%'
+		</if>
+		<if test="package_ != null and package_!=''">
+			AND a.PACKAGE = #{package_}
+		</if>
+		<if test="extraDesc != null and extraDesc!=''">
+			AND a.EXTRA_DESC like '%${extraDesc}%'
+		</if>
+		<if test="custPartCode != null and custPartCode!=''">
+			AND a.CUST_PART_CODE like '%${custPartCode}%'
+		</if>
+		<if test="prodCodeSellPtr != null and prodCodeSellPtr!=''">
+			AND a.prod_code_sell_ptr =#{prodCodeSellPtr}
+		</if>
+		<if test="list!= null and list.size()>0">
 			AND (
-			<foreach collection="list" item="item" index="index" separator="AND">
+			<foreach collection="list" item="item" index="index"
+				separator="AND">
 				a.inv_part_description_c LIKE
 				'%${item}%'
 			</foreach>
 			)
-	</if>
-  </select>
-  
-  <select id="countCustPartCode" parameterType="java.util.Map" resultType="java.lang.Integer">
-  	SELECT COUNT(*) FROM DATA0017  a where  a.CUST_PART_CODE = #{custPartCode}
-  </select>
-  
-   <select id="countInvPartDescriptionC" parameterType="java.util.Map" resultType="java.lang.Integer">
-  	SELECT COUNT(*) FROM DATA0017  a where  a.inv_part_description_c = #{invPartDescriptionC}
-  </select>
-  
-  
+		</if>
+	</select>
+
+	<select id="countCustPartCode" parameterType="java.util.Map"
+		resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM DATA0017 a where a.CUST_PART_CODE =
+		#{custPartCode}
+		<if test="rkey != null and rkey!=''">
+			AND a.RKEY != #{rkey}
+		</if>
+	</select>
+
+	<select id="countInvPartDescriptionC"
+		parameterType="java.util.Map" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM DATA0017 a where a.inv_part_description_c =
+		#{invPartDescriptionC}
+		<if test="rkey != null and rkey!=''">
+			AND a.RKEY != #{rkey}
+		</if>
+	</select>
+
+
 </mapper>
