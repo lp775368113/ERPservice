@@ -45,6 +45,7 @@
 			jdbcType="VARCHAR" />
 		<result column="mach_h" property="machH" jdbcType="VARCHAR" />
 		<result column="prodCodeSellPtrStr" property="prodCodeSellPtrStr" jdbcType="VARCHAR" />
+		<result column="package_Str" property="package_Str" jdbcType="VARCHAR" />
 	</resultMap>
 
 	<select id="getPage" parameterType="java.util.Map"
@@ -58,6 +59,7 @@
 		(select j.PROD_NAME from DATA0008 j WHERE a.prod_code_sell_ptr=j.RKEY) prodCodeSellPtrStr,
 		a.prod_supper,
 		a.package,
+		a.package package_Str,
 		a.smt_flag,
 		a.inv_part_description_c,
 		a.cust_part_name,

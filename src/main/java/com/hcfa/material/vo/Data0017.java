@@ -63,6 +63,8 @@ public class Data0017 {
     
     private String prodCodeSellPtrStr;
     
+    private String package_Str;
+    
 
     public String getProdCodeSellPtrStr() {
 		try {
@@ -511,6 +513,16 @@ public class Data0017 {
 	public void setStatus(String status) {
 		this.status = status;
 	}
+
+	public String getPackage_Str() {
+		return package_Str;
+	}
+
+	public void setPackage_Str(String package_Str) {
+		this.package_Str = package_Str;
+	}
+	
+	
 	
     
 }
