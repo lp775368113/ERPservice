@@ -1,38 +1,24 @@
 package com.hcfa.vo;
 
 public class Para {
-	private String startTime;
-	private String endTime;
+	private String starttime;
+	private String endtime;
 	private String xh;
-	/**
-	 * @return the startTime
-	 */
-	public String getStartTime() {
-		return startTime;
-	}
-	/**
-	 * @param startTime the startTime to set
-	 */
-	public void setStartTime(String startTime) {
-		this.startTime = startTime;
-	}
-	/**
-	 * @return the endTime
-	 */
-	public String getEndTime() {
-		return endTime;
-	}
-	/**
-	 * @param endTime the endTime to set
-	 */
-	public void setEndTime(String endTime) {
-		this.endTime = endTime;
-	}
-	/**
-	 * @return the xh
-	 */
+	
 	public String getXh() {
 		return xh;
+	}
+	public String getStarttime() {
+		return starttime;
+	}
+	public void setStarttime(String starttime) {
+		this.starttime = starttime;
+	}
+	public String getEndtime() {
+		return endtime;
+	}
+	public void setEndtime(String endtime) {
+		this.endtime = endtime;
 	}
 	/**
 	 * @param xh the xh to set
@@ -45,7 +31,7 @@ public class Para {
 	 */
 	@Override
 	public String toString() {
-		return "Para [startTime=" + startTime + ", endTime=" + endTime + ", xh=" + xh + "]";
+		return "Para [startTime=" + starttime + ", endTime=" + endtime + ", xh=" + xh + "]";
 	}
 	
 }

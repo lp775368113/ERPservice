@@ -17,4 +17,6 @@ public interface Data0017Mapper {
 
 	Integer countInvPartDescriptionC(Map map);
 
+	List<Map<String,String>> getCC(Map map);
+
 }

@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.stereotype.Component;
+
 import com.hcfa.inte.CommonService;
 import com.hcfa.material.dao.Data0017Mapper;
 import com.hcfa.material.dao.UnitsMapper;
@@ -56,40 +57,23 @@ public class MaterialServiceImpl implements MaterialService {
 	public String getWLInfo(String para1) {
 		JSONObject jsonstr = JSONObject.fromObject(para1);
 		HashMap cs=(HashMap) JSONObject.toBean(jsonstr, Map.class);
-		String prodSupper=(String) cs.get("prodSupper");
-		String custPartCode=(String) cs.get("custPartCode");
-		String ipdcSTR=(String) cs.get("ipdcSTR");
-		String package_=(String) cs.get("package_");
-		try {
-			if(!"".equals(prodSupper)&&prodSupper!=null) {
-				prodSupper =CodeUtil.getLM(prodSupper);
-				cs.put("prodSupper", prodSupper);
-			}
-			if(!"".equals(custPartCode)&&custPartCode!=null) {
-				custPartCode =CodeUtil.getLM(custPartCode);
-				cs.put("custPartCode", custPartCode);
-			}
-			if(!"".equals(ipdcSTR)&&ipdcSTR!=null) {
-				ipdcSTR =CodeUtil.getLM(ipdcSTR);
-				String [] list = ipdcSTR.split("\\s+");
-				 List<String> stringB = Arrays.asList(list);
-				cs.put("list", stringB);
-			}
-			if(!"".equals(package_)&&package_!=null) {
-				package_ =CodeUtil.getLM(package_);
-				cs.put("package_", package_);
-			}
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-			logger.info(e.getMessage());
-		}
+		String rkeys=(String) cs.get("rkeys");
 		logger.info("请求参数："+cs.toString());
-		List<Data0017> list=data0017Mapper.getPage(cs);
-		Integer count=data0017Mapper.getPageCount(cs);
-		Map<String, Object> result = new HashMap<String, Object>();
-		result.put("total", count);
-		result.put("data", list);
-		JSONObject json = JSONObject.fromObject(result);
+		List<Map<String, String>> map=data0017Mapper.getCC(cs);
+	    Map<String, String> baseMap = new HashMap<String, String>();
+		for (Map<String, String> mm : map) {
+		        String rkey = null;
+		        String warehouse = null;
+		        for (Map.Entry<String,String>  entry:mm.entrySet()) {
+		            if ("RKEY".equals(entry.getKey())) {
+		            	rkey =  String.valueOf(entry.getValue());
+		            }else if ("WAREHOUSE".equals(entry.getKey())) {
+		            	warehouse =String.valueOf(entry.getValue());
+		            }
+		        }
+		        baseMap.put(rkey,warehouse);
+		}
+		JSONObject json = JSONObject.fromObject(baseMap);
 		logger.info("返回值："+json.toString());
 		return json.toString();
 	}

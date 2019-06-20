@@ -158,6 +158,15 @@
 			AND a.RKEY != #{rkey}
 		</if>
 	</select>
+	
+	<select id="getCC" resultType="java.util.Map" parameterType="java.util.Map">
+		SELECT a.INVENTORY_PTR RKEY,SUM(A.QUAN_ON_HAND) warehouse FROM DATA0019 a 
+		WHERE a.INVENTORY_PTR in 
+		 <foreach item="item" index="index" collection="rkeys.split(',')"  open="(" separator="," close=")">
+                ${item}
+         </foreach>
+		 GROUP BY a.INVENTORY_PTR
+	</select>
 
 
 </mapper>

@@ -17,4 +17,8 @@ public interface CommonService {
     @WebMethod
     @WebResult(name = "String",targetNamespace = "")
     public String getQueryData(@WebParam(name = "QueryName") String name);
+    
+    @WebMethod
+    @WebResult(name = "String",targetNamespace = "")
+    public String getQueryDIYData(@WebParam(name = "QueryName2") String name2);
 }
