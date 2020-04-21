@@ -28,7 +28,7 @@ public class JdbcUtil {
 	return dataSource;
 	}
 
-	//获得数据库
+	
 
 	public static Connection getConnection() throws SQLException {
 	return dataSource.getConnection();
